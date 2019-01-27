@@ -30,8 +30,11 @@ public class Constants {
     public static final String PAYLOAD_DIVIDER = ";";
 
     //ERROR
-    public static final String INVALID_PAYLOAD = "invalid payload, wrong format.";
+    public static final String ENTITY_DUPLICATED = "An entity with the same logic attribute already exists";
+    public static final String ENTITY_NOT_FOUND = "An entity with this attribute <logic> cannot be found";
+    public static final String PARSE_ERROR = "invalid payload, wrong format";
     public static final String UNKNOWN = "unknown error";
+    public static final String INVALID_PAYLOAD = "invalid payload, wrong format";
     public static final String INVALID_JSON_SCHEMA = "your payload doesn't match the json schema";
 
     //SCHEMA

@@ -1,15 +1,17 @@
 package com.flaviotps.muxi.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flaviotps.muxi.Util.Constants;
-import com.flaviotps.muxi.model.response.ErrorModel;
-import com.flaviotps.muxi.model.domain.TerminalModel;
+import com.flaviotps.muxi.domain.model.TerminalModel;
+import com.flaviotps.muxi.domain.response.ErrorResponse;
 import com.flaviotps.muxi.repository.TerminalRepository;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.ValidationException;
 import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +23,15 @@ public class TerminalService {
     @Autowired
     TerminalRepository terminalRepository;
 
-    public boolean validate(JSONObject obj) {
+
+    /**
+     * Validates the json schema
+     *
+     * @param obj JSON OBJECT
+     * @return returns a boolean
+     */
+    private boolean validate(JSONObject obj) {
+
         try {
             SchemaLoader loader = SchemaLoader.builder()
                     .schemaJson(new JSONObject(Constants.JSON_SCHEMA))
@@ -35,10 +45,25 @@ public class TerminalService {
         }
     }
 
-    public List<TerminalModel> findAll() {
-        return terminalRepository.findAll();
+    /**
+     * List all TerminalModel entities with with pagination
+     *
+     * @param page
+     * @param size
+     * @return return a list of TerminalModel
+     */
+
+    public List<TerminalModel> findAll(int page, int size) {
+        return terminalRepository.findAll(PageRequest.of(page, size)).getContent();
     }
 
+
+    /**
+     * Parses the raw payload and saves de entity
+     *
+     * @param payload payload text/html utf-8
+     * @return Json object.
+     */
     private JSONObject parse(String payload) {
 
         String splitedPayLoad[] = payload.split(Constants.PAYLOAD_DIVIDER);
@@ -61,26 +86,76 @@ public class TerminalService {
 
     }
 
-
-    public JSONObject save(String payload) {
+    /**
+     * saves the entity
+     *
+     * @param payload payload text/html utf-8
+     * @return string with error ou entity (json).
+     */
+    public String save(String payload) {
 
         try {
-            JSONObject jsonObject = parse(payload.toString());
+            JSONObject jsonObject = parse(payload);
             if (validate(jsonObject)) {
                 ObjectMapper objectMapper = new ObjectMapper();
                 TerminalModel terminalModel = objectMapper.readValue(jsonObject.toString(), TerminalModel.class);
-                terminalRepository.save(terminalModel);
-                return jsonObject;
+                if (terminalRepository.findByLogic(terminalModel.getLogic()) == null) {
+                    terminalRepository.save(terminalModel);
+                    return jsonObject.toString();
+                } else {
+                    return new ErrorResponse(Constants.ENTITY_DUPLICATED).toString();
+                }
+
             } else {
-                return new ErrorModel(Constants.INVALID_JSON_SCHEMA);
+                return new ErrorResponse(Constants.INVALID_JSON_SCHEMA).toString();
             }
 
         } catch (Exception e) {
-            return new ErrorModel(Constants.INVALID_PAYLOAD, e.getMessage().toString());
+            return new ErrorResponse(Constants.INVALID_PAYLOAD, e.getMessage()).toString();
         }
     }
 
-    public List<TerminalModel> findAllByLogic(int logic) {
-        return terminalRepository.findAllByLogic(logic);
+    /**
+     * Find a entity
+     *
+     * @param logic Integer
+     * @return returns the TerminalModel entity object
+     */
+    public TerminalModel findAllByLogic(int logic) {
+        return terminalRepository.findByLogic(logic);
+    }
+
+
+    /**
+     * Updates a exsisting entity
+     *
+     * @param terminalModel
+     * @param logic
+     * @return return a String (json) with the entity ou error.
+     */
+    public String update(TerminalModel terminalModel, int logic) {
+
+        TerminalModel temp = terminalRepository.findByLogic(logic);
+
+        if (temp == null) {
+            return new ErrorResponse(Constants.ENTITY_NOT_FOUND).toString();
+        }
+
+        if (terminalModel.getLogic() != logic) {
+            return new ErrorResponse("ID'S DIFERENTES").toString();
+        } else {
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                JSONObject jsonObject = new JSONObject(objectMapper.writeValueAsString(terminalModel));
+                if (validate(jsonObject)) {
+                    terminalRepository.save(terminalModel);
+                    return jsonObject.toString();
+                } else {
+                    return new ErrorResponse(Constants.INVALID_JSON_SCHEMA).toString();
+                }
+            } catch (JsonProcessingException e) {
+                return new ErrorResponse(Constants.PARSE_ERROR).toString();
+            }
+        }
     }
 }
