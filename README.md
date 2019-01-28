@@ -28,7 +28,7 @@ Após ler a descrição do projeto e seus requisitos, ficou decidido que a lingu
 
 
 ## CONFIGURAÇÕES REALIZADAS
-Connfigurando o HIBERNATE/JPA
+Configurando o HIBERNATE/JPA
 em application.properties:
 ```
 spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
@@ -101,7 +101,35 @@ public class SwaggerConfig {
 ```
 ## DOCUMENTAÇÃO E USO
 
-A API possui 4 endpoints
+A API possui 4 endpoints, a **`DOCUMENTAÇÃO`** completa pode ser vista [AQUI](https://projetomuxi.herokuapp.com/swagger-ui.html#/terminal45controller).
+
+
+
+<a href="https://projetomuxi.herokuapp.com/swagger-ui.html#/terminal45controller" target="_blank"><p align="center">
+ <p align="center">
+  <img src="https://github.com/flaviotps/MUXI-API/blob/master/SWAGGER.png" title="documentação swagger">
+</p>
+</a>
+
+**GET**
+Exemplo de endpoint que retorna uma lista de entidades com paginação: [LINK](https://projetomuxi.herokuapp.com/rest/api/v1/terminal?page=0&size=2)
+
+`https://projetomuxi.herokuapp.com/rest/api/v1/terminal?page=0&size=2`
+
+**GET**
+Exemplo de endpoint que retorna uma entidade com pela variável de caminho /{logic}: [LINK](https://projetomuxi.herokuapp.com/rest/api/v1/terminal/66662211)
+
+`https://projetomuxi.herokuapp.com/rest/api/v1/terminal/66662211`
+
+**PUT**
+Exemplo de endpoint que atualizada uma entidade pela variável de caminho /{logic}:
+
+`https://projetomuxi.herokuapp.com/rest/api/v1/terminal/66662211`
+
+**POST**
+Exemplo de endpoint que cria uma entidade:
+
+`https://projetomuxi.herokuapp.com/rest/api/v1/terminal`
 
 
 ## TESTES REALIZADOS (JUNIT)
@@ -113,8 +141,7 @@ Teste de validação do json schema
         try {
             JSONObject schema = new JSONObject(Constants.JSON_SCHEMA);
             boolean validSchema = terminalService.validate(schema,new JSONObject(Constants.TEST_JSON));
-            Assert.assertEquals(true, validSchema);
-            System.out.println("VALID SCHEMA");
+            Assert.assertEquals(true, validSchema);          
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -122,15 +149,7 @@ Teste de validação do json schema
     }
 ```
 
-Teste de consulta (getByLogic)
-```
-  @Test
-    public void getEntity() throws Exception{
-        int requestLogic = 44332211;
-        TerminalModel terminalModel = terminalService.findAllByLogic(requestLogic);
-        Assert.assertEquals(requestLogic, terminalModel.getLogic());
-    }
-```
+
 
 
 
