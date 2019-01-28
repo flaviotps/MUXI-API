@@ -99,4 +99,39 @@ public class SwaggerConfig {
     }
 }
 ```
+## DOCUMENTAÇÃO E USO
+
+A API possui 4 endpoints
+
+
+## TESTES REALIZADOS (JUNIT)
+Teste de validação do json schema
+
+``` @Test
+    public void SchemaValidation() throws Exception{
+
+        try {
+            JSONObject schema = new JSONObject(Constants.JSON_SCHEMA);
+            boolean validSchema = terminalService.validate(schema,new JSONObject(Constants.TEST_JSON));
+            Assert.assertEquals(true, validSchema);
+            System.out.println("VALID SCHEMA");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+```
+
+Teste de consulta (getByLogic)
+```
+  @Test
+    public void getEntity() throws Exception{
+        int requestLogic = 44332211;
+        TerminalModel terminalModel = terminalService.findAllByLogic(requestLogic);
+        Assert.assertEquals(requestLogic, terminalModel.getLogic());
+    }
+```
+
+
+
 
