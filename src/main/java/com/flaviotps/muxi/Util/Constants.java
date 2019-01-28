@@ -3,6 +3,13 @@ package com.flaviotps.muxi.Util;
 public class Constants {
 
 
+    //API DESCRIPTION
+    public static final String API_CREATE = "Creates a new terminal entity";
+    public static final String API_UPDATE = "Updates an existing terminal entity";
+    public static final String API_GET_ALL = "Get all terminal entities";
+    public static final String API_GET = "Get a terminal entity by logic attribute";
+
+
     //HASH MAP KEY
     public static final String PROPERTY_LOGIC = "logic";
     public static final String PROPERTY_SERIAL = "serial";
