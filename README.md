@@ -101,6 +101,8 @@ public class SwaggerConfig {
 ```
 ## DOCUMENTAÇÃO E USO
 
+**OBS: OS DYNOS DA HOSPEDAGEM DO HEROKU PODEM DEMORAR UM POUCO PARAR RESPONDER (ACORDAR)**
+
 A API possui 4 endpoints, a **`DOCUMENTAÇÃO`** completa pode ser vista [AQUI](https://projetomuxi.herokuapp.com/swagger-ui.html#/terminal45controller).
 
 
