@@ -20,9 +20,9 @@ Desafio backend para o processo seletivo da empresa Muxi. O desafio consiste em 
 - Tomcat
 
 ## Desenvolvimento
-Após ler a descrição do projeto e seus requisitos, ficou decidido que a linguagem utilizada seria JAVA 8+, framework Spring Boot 2.1.2, com o banco de dados PostgreSQL e o gerenciador de dependencias maven. Java, Spring Boot e PostgreSQL foram escolhidos devido a maturidade, facilidade de implantação e viabilidade no ambiente empresarial, maven foi escolhido por preferencia pessoal. O Padrão arquitetural MVC foi escolhido por ser o mais usado no desenvolvimento de API's, facilitando a manutenção e coomprensão do codigo. 
+Após ler a descrição do projeto e seus requisitos, ficou decidido que a linguagem utilizada seria JAVA 8+, framework Spring Boot 2.1.2, com o banco de dados PostgreSQL e o gerenciador de dependências maven. Java, Spring Boot e PostgreSQL foram escolhidos devido a maturidade, facilidade de implantação e viabilidade no ambiente empresarial, maven foi escolhido por preferencia pessoal. O Padrão arquitetural MVC foi escolhido por ser o mais usado no desenvolvimento de API's, facilitando a manutenção e compreensão do código. 
 
- Os pacotes foram divididos nas trés camadas MVC (Model,View,Controller). Os pacotes `controller` e `service` fazem parte da camada controller do MVC, sendo esses responsaveis pelo `endpoint`  da API e pela execução das regras de negocio respectivamente. O pacote domain contem o modelo da entidade que será criada e um modelo criado para responder os erros nas requisições. Os controllers foram desenvolvidos seguindo as especficiaçoes do desafio, o service acessa a interface JPA no pacote `repository` que percente a camada model do MVC. Essa interface é implementada em tempo de execução atraves da injecção de dependencia e a inversão de controle (IOC) do framework spring.
+ Os pacotes foram divididos nas três camadas MVC (Model,View,Controller). Os pacotes `controller` e `service` fazem parte da camada controller do MVC, sendo esses responsáveis pelo `endpoint`  da API e pela execução das regras de negócio respectivamente. O pacote domain contém o modelo da entidade que será criada e um modelo criado para responder os erros nas requisições. Os controllers foram desenvolvidos seguindo as especificações do desafio, o service acessa a interface JPA no pacote `repository` que pertence a camada model do MVC. Essa interface é implementada em tempo de execução através da injeção de dependência e a inversão de controle (IOC) do framework spring.
  
  A aplicação roda em um servidor de aplicação embutido (Tomcat) e é documentada usando Swagger2 
 
@@ -39,7 +39,7 @@ spring.jpa.hibernate.ddl-auto=update
 
 
 
-Connfigurando o PostgreSQL
+Configurando o PostgreSQL
 em application.properties:
 ```
 spring.datasource.url=${JDBC_DATABASE_URL}
