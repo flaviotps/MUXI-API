@@ -1,10 +1,10 @@
-package com.flaviotps.muxi.model.domain;
+package com.flaviotps.muxi.domain.model;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 
@@ -12,10 +12,8 @@ import javax.persistence.Id;
 public class TerminalModel {
 
     @Id
-    @GeneratedValue
-    private long id;
-
     @JsonProperty("logic")
+    @Column(updatable = false)
     private int logic;
     @JsonProperty("serial")
     private String serial;
@@ -34,16 +32,10 @@ public class TerminalModel {
     @JsonProperty("mxf")
     private int mxf;
     @JsonProperty("VERFM")
-    private String VERFM;
+    private String verfm;
 
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public int getLogic() {
         return logic;
@@ -109,11 +101,19 @@ public class TerminalModel {
         this.mxr = mxr;
     }
 
-    public String getVERFM() {
-        return VERFM;
+    public int getMxf() {
+        return mxf;
     }
 
-    public void setVERFM(String VERFM) {
-        this.VERFM = VERFM;
+    public void setMxf(int mxf) {
+        this.mxf = mxf;
+    }
+
+    public String getVerfm() {
+        return verfm;
+    }
+
+    public void setVerfm(String verfm) {
+        this.verfm = verfm;
     }
 }

@@ -23,7 +23,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.flaviotps.muxi"))
-                .paths(regex("/pdv.*"))
+                .paths(regex("/rest/api/v1/terminal.*"))
                 .build()
                 .apiInfo(metaInfo());
     }
