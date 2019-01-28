@@ -82,4 +82,9 @@ public class Constants {
             "    \"version\"\n" +
             "  ]\n" +
             "}";
+
+
+    //TEST
+    public static final String TEST_JSON = "{ \n" +
+            "\"logic\": 44332211,  \"serial\": \"123\",  \"model\": \"PWWIN\",  \"sam\": 0,  \"ptid\": \"F04A2E4088B\",  \"plat\": 4,  \"version\": \"8.00b3\",  \"mxr\": 0,  \"mxf\": 16777216,  \"VERFM\":”PWWIN\" }";
 }

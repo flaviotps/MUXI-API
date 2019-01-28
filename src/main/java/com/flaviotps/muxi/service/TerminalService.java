@@ -26,16 +26,15 @@ public class TerminalService {
 
 
     /**
-     * Validates the json schema
-     *
+     * Validates the json schema     *
      * @param obj JSON OBJECT
      * @return returns a boolean
      */
-    private boolean validate(JSONObject obj) {
+    public boolean validate(JSONObject jsonSchema, JSONObject obj) {
 
         try {
             SchemaLoader loader = SchemaLoader.builder()
-                    .schemaJson(new JSONObject(Constants.JSON_SCHEMA))
+                    .schemaJson(jsonSchema)
                     .draftV6Support()
                     .build();
             Schema schema = loader.load().build();
@@ -47,8 +46,7 @@ public class TerminalService {
     }
 
     /**
-     * List all TerminalModel entities with with pagination
-     *
+     * List all TerminalModel entities with with pagination     *
      * @param page
      * @param size
      * @return return a list of TerminalModel
@@ -60,8 +58,7 @@ public class TerminalService {
 
 
     /**
-     * Parses the raw payload and saves de entity
-     *
+     * Parses the raw payload and saves de entity     *
      * @param payload payload text/html utf-8
      * @return Json object.
      */
@@ -88,8 +85,7 @@ public class TerminalService {
     }
 
     /**
-     * saves the entity
-     *
+     * saves the entity     *
      * @param payload payload text/html utf-8
      * @return string with error ou entity (json).
      */
@@ -97,7 +93,8 @@ public class TerminalService {
 
         try {
             JSONObject jsonObject = parse(payload);
-            if (validate(jsonObject)) {
+            JSONObject schema = new JSONObject(Constants.JSON_SCHEMA);
+            if (validate(schema, jsonObject)) {
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
                 TerminalModel terminalModel = objectMapper.readValue(jsonObject.toString(), TerminalModel.class);
@@ -150,7 +147,8 @@ public class TerminalService {
             objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
             try {
                 JSONObject jsonObject = new JSONObject(objectMapper.writeValueAsString(terminalModel));
-                if (validate(jsonObject)) {
+                JSONObject schema = new JSONObject(Constants.JSON_SCHEMA);
+                if (validate(schema, jsonObject)) {
                     terminalRepository.save(terminalModel);
                     return jsonObject.toString();
                 } else {

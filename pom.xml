@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Ez-App-Restful-Api</name>
+    <name>API-MUXI</name>
     <description>Rest Api Muxi</description>
 
     <parent>
