@@ -31,8 +31,8 @@ public class SwaggerConfig {
     private ApiInfo metaInfo() {
 
         ApiInfo apiInfo = new ApiInfo(
-                "API REST muxi -  PDV",
-                "DOCUMENTAÇÃO DA API PDV",
+                "API REST MUXI -  TERMINAL",
+                "DOCUMENTAÇÃO DA API TERMINAL",
                 "1.0",
                 "Termos de uso",
                 new Contact("Flávio Telles", "",

@@ -1,6 +1,7 @@
 package com.flaviotps.muxi.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flaviotps.muxi.Util.Constants;
 import com.flaviotps.muxi.domain.model.TerminalModel;
@@ -98,6 +99,7 @@ public class TerminalService {
             JSONObject jsonObject = parse(payload);
             if (validate(jsonObject)) {
                 ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
                 TerminalModel terminalModel = objectMapper.readValue(jsonObject.toString(), TerminalModel.class);
                 if (terminalRepository.findByLogic(terminalModel.getLogic()) == null) {
                     terminalRepository.save(terminalModel);
@@ -145,6 +147,7 @@ public class TerminalService {
             return new ErrorResponse("ID'S DIFERENTES").toString();
         } else {
             ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
             try {
                 JSONObject jsonObject = new JSONObject(objectMapper.writeValueAsString(terminalModel));
                 if (validate(jsonObject)) {
