@@ -26,7 +26,7 @@ public class TerminalController {
    
     
    
-    @GetMapping(value = {"/test"},produces = {"text/html; charset=utf-8"})
+    @GetMapping(value = {"/test"},produces = {"text/plain; charset=utf-8"})
     @ResponseStatus(HttpStatus.OK)
     public String TestScopus() {
         return "url=$idsessao=vUSBmPoPIkGzAdib4TxnPbg";
