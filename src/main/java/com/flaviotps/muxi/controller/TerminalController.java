@@ -23,13 +23,11 @@ public class TerminalController {
     @Autowired
     TerminalService terminalService;
 
-   
-    
-   
-    @GetMapping(value = {"/test"},produces = {"text/plain; charset=utf-8"})
+    @ApiOperation(Constants.API_GET_ALL)
+    @GetMapping(value = {"/terminal"}, produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    public String TestScopus() {
-        return "url=$idsessao=vUSBmPoPIkGzAdib4TxnPbg";
+    public List<TerminalModel> getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
+        return terminalService.findAll(page, size);
     }
 
     @ApiOperation(Constants.API_GET)
