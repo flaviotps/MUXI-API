@@ -24,10 +24,10 @@ public class TerminalController {
     TerminalService terminalService;
 
     @ApiOperation(Constants.API_GET_ALL)
-    @GetMapping(value = {"/terminal"}, produces = {"text/plain; charset=utf-8"})
+    @GetMapping(value = {"/terminal"}, produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    public String getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
-        return "url=$idsessao=vUSBmPoPIkGzAdib4TxnPbg";
+    public List<TerminalModel> getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
+        return terminalService.findAll(page, size);
     }
     
     
