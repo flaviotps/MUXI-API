@@ -29,15 +29,6 @@ public class TerminalController {
     public List<TerminalModel> getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
         return terminalService.findAll(page, size);
     }
-    
-    
-    
-    )
-    @GetMapping(value = {"/test"})
-    @ResponseStatus(HttpStatus.OK)
-    public String TestScopus() {
-        return "TEST";
-    }
 
     @ApiOperation(Constants.API_GET)
     @GetMapping(value = {"/terminal/{logic}"}, produces = {MediaType.APPLICATION_JSON_VALUE})
