@@ -1,5 +1,9 @@
 package com.flaviotps.muxi.domain.model;
 
+
+import javax.persistence.Entity;
+
+@Entity
 public class Step1DTO {
 
 
